@@ -4,10 +4,12 @@ import VState from '../models/VState'
 import Transition from '../models/Transition'
 import './css/graph.css';
 import Alphabet from '../models/Alphabet';
+import { StateMachineImpl } from '../selectors/statemachines';
 
 export interface GraphProps {
-  states: VState[];
-  transitions: Transition[];
+  // states: VState[];
+  // transitions: Transition[];
+  sm: StateMachineImpl
 }
 
 export default class Graph extends React.Component<GraphProps, {}> {
@@ -19,10 +21,10 @@ export default class Graph extends React.Component<GraphProps, {}> {
   render() { return <div id="graph" />; }
 
   updateGraph() {
-    const nodes = new DataSet([...this.props.states]);
+    const nodes = new DataSet([...this.props.sm.states]);
 
     // create an array with transitions
-    const transitions = new DataSet([...this.props.transitions]);
+    const transitions = new DataSet([...this.props.sm.transitions]);
 
     // create a network
     const container = document.getElementById('graph');

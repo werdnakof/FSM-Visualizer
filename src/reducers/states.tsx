@@ -8,7 +8,8 @@ export interface State {
 export const initialState: State = {
   states: [
     { id: 0, label: 'a'},
-    { id: 1, label: 'b' }
+    { id: 1, label: 'b' },
+    { id: 2, label: 'c' }
   ]
 };
 

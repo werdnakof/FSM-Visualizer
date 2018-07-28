@@ -7,7 +7,8 @@ export interface State {
 
 export const initialState: State = {
   transitions: {
-    '0-1': new Transition(0, 1, 0)
+    '0-1': new Transition(0, 1, 0),
+    '1-2': new Transition(1, 2, 1)
   }
 };
 

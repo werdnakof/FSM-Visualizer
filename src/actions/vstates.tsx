@@ -1,6 +1,6 @@
 import VState from '../models/VState'
 
-let nextVStateId = 2;
+let nextVStateId = 3;
 
 export enum Types {
   ADD_VSTATE = '[vstates] ADD_VSTATE',
