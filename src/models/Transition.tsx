@@ -1,8 +1,9 @@
-export default class Edge {
+export default class Transition {
   from: number;
   to: number;
   alphabetId: number;
   label: string;
+  arrows: string = 'to';
 
   constructor(from: number, to: number, alphabetId: number) {
       this.from = from;
@@ -10,7 +11,7 @@ export default class Edge {
       this.alphabetId = alphabetId;
   }
 
-  getCode(): string {
+  getId(): string {
     return `${this.from}-${this.to}`
   }
 }

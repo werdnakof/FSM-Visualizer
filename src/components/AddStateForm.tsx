@@ -36,7 +36,7 @@ export default class AddStateForm extends React.Component<Props, State> {
   render() {
     return (
       <form onSubmit={this._handleSubmit}>
-        <Input placeholder={'Enter Label'}
+        <Input placeholder={'Enter State Label'}
                getText={this._updateValue}
                 text={this.state.value}/>
         <button type="submit">Submit</button>

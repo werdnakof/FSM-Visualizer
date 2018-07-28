@@ -1,6 +1,6 @@
 import Dropdown  from './Dropdown'
 import VState from '../models/VState';
-import Edge from '../models/Edge';
+import Transition from '../models/Transition';
 import * as React from 'react';
 import { FormEvent } from 'react';
 import Alphabet from '../models/Alphabet';
@@ -8,7 +8,7 @@ import Alphabet from '../models/Alphabet';
 export interface Props {
   states: VState[],
   alphabets: Alphabet[]
-  handleSubmit: (edge: Edge) => void
+  handleSubmit: (edge: Transition) => void
 }
 
 interface State {
@@ -42,7 +42,7 @@ export class AddTransitionForm extends React.Component<Props, State> {
     }
 
     console.log('fullfilled');
-    this.props.handleSubmit(new Edge(
+    this.props.handleSubmit(new Transition(
       this.state.fromStateId,
       this.state.toStateId,
       this.state.alphabetId

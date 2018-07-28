@@ -1,13 +1,13 @@
 import * as fromTodos from './todos'
 import * as fromVstates from './states'
-import * as fromEdges from './edges'
+import * as fromTransitions from './transitions'
 import * as fromAlphabets from './alpabets'
 import { combineReducers } from 'redux'
-import Edge from '../models/Edge';
+import Transition from '../models/Transition';
 
 export interface State {
   vstates: fromVstates.State
-  edges: fromEdges.State
+  transitions: fromTransitions.State
   alphabets: fromAlphabets.State
   todos: fromTodos.State
 }
@@ -18,9 +18,9 @@ export const initialState: State = {
       { id: 1, label: 'b' }
     ]
   },
-  edges: {
-    edges: {
-      '0-1': new Edge(0, 1, 0)
+  transitions: {
+    transitions: {
+      '0-1': new Transition(0, 1, 0)
     }
   },
   alphabets: {
@@ -33,6 +33,6 @@ export const initialState: State = {
 
 export const reducer = combineReducers<State>({
   vstates: fromVstates.reducer,
-  edges: fromEdges.reducer,
+  transitions: fromTransitions.reducer,
   alphabets: fromAlphabets.reducer
 });

@@ -1,13 +1,12 @@
 import { connect } from 'react-redux'
 import { State } from '../reducers'
 import { getStates } from '../selectors/vstates'
-import { getEdges } from '../selectors/edges'
-import Graph, { GraphProps } from '../components/Graph'
-import { getAlphabets } from '../selectors/alphabets';
+import { getTransitions } from '../selectors/transitions'
+import Graph from '../components/Graph'
 
 const mapStateToProps = (state: State) => ({
   states: getStates(state),
-  edges: getEdges(state)
+  transitions: getTransitions(state)
 });
 
 export default connect<any, any, any>(

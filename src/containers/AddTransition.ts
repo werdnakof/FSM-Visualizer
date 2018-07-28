@@ -2,7 +2,7 @@ import { getStates } from '../selectors/vstates';
 import { connect } from 'react-redux';
 import { State } from '../reducers'
 import { AddTransitionForm, Props } from '../components/AddTransitionForm';
-import { addEdge } from '../actions/edges';
+import { addTransition } from '../actions/transitions';
 import { getAlphabets } from '../selectors/alphabets';
 
 const mapStateToProps = (state: State) => ({
@@ -11,7 +11,7 @@ const mapStateToProps = (state: State) => ({
 });
 
 const mapDispatchToProps = {
-  handleSubmit: addEdge
+  handleSubmit: addTransition
 };
 
 export default connect<any, any, any>(

@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { Network, DataSet } from 'vis';
 import VState from '../models/VState'
-import Edge from '../models/Edge'
+import Transition from '../models/Transition'
 import './css/graph.css';
 import Alphabet from '../models/Alphabet';
 
 export interface GraphProps {
   states: VState[];
-  edges: Edge[];
+  transitions: Transition[];
 }
 
 export default class Graph extends React.Component<GraphProps, {}> {
@@ -21,14 +21,14 @@ export default class Graph extends React.Component<GraphProps, {}> {
   updateGraph() {
     const nodes = new DataSet([...this.props.states]);
 
-    // create an array with edges
-    const edges = new DataSet([...this.props.edges]);
+    // create an array with transitions
+    const transitions = new DataSet([...this.props.transitions]);
 
     // create a network
     const container = document.getElementById('graph');
 
     // provide the data in the vis format
-    const data = { nodes, edges };
+    const data = { nodes, edges: transitions };
 
     const options = {};
 
