@@ -7,13 +7,19 @@ import Transition from '../models/Transition';
 
 const getState = ((state: State) => state);
 
+export interface Edge {
+  from: number,
+  to: number,
+  label: string
+}
+
 export class StateMachineImpl {
   label: string;
-  startStateId: number;
+  startStateId: string;
 
   states: VState[] = [];
   alphabets: Alphabet[] = [];
-  transitions: Transition[] = [];
+  edges: Edge[] = [];
 
   constructor(state: State) {
     const toDisplay: number = state.stateMachines.displayId;
@@ -24,25 +30,20 @@ export class StateMachineImpl {
 
     this.populateStates(stateMachine, state.vstates.states);
     this.populateAlphabets(stateMachine, state.alphabets.alphabets);
-    this.populateTransitions(stateMachine, state.alphabets.alphabets, state.transitions.transitions);
+    this.populateTransitions(stateMachine,
+                             state.vstates.states,
+                             state.transitions.transitions);
   }
 
   private populateStates(stateMachine: StateMachine,
-                         vstates: { [id: number]: VState }) {
+                         vstates: { [id: string]: VState }) {
     for (const id of stateMachine.stateIds) {
       this.states.push(vstates[id]);
     }
   }
 
-  private populateAlphabets(stateMachine: StateMachine,
-                            alphabets: { [id: number]: Alphabet }) {
-    for (const id of stateMachine.alphabetIds) {
-      this.alphabets.push(alphabets[id]);
-    }
-  }
-
   private populateTransitions(stateMachine: StateMachine,
-                              alphabets: { [id: number]: Alphabet },
+                              vstates: { [id: string]: VState },
                               transitions: { [id: string]: Transition }) {
 
     const results: Transition[] = [];
@@ -51,10 +52,22 @@ export class StateMachineImpl {
       results.push(transitions[id]);
     }
 
-    results.map((t) => {
-      t.label = alphabets[t.alphabetId].label;
-      this.transitions.push(t);
+    console.log(results);
+
+    results.map((tran) => {
+      this.edges.push({
+        from: vstates[tran.from].id,
+        to: vstates[tran.to].id,
+        label: tran.label
+      });
     });
+  }
+
+  private populateAlphabets(stateMachine: StateMachine,
+                            alphabets: { [id: string]: Alphabet }) {
+    for (const id of stateMachine.alphabetIds) {
+      this.alphabets.push(alphabets[id]);
+    }
   }
 }
 

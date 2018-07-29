@@ -1,14 +1,13 @@
 export default class Transition {
-  from: number;
-  to: number;
-  alphabetId: number;
+  from: string;
+  to: string;
   label: string;
   arrows: string = 'to';
 
-  constructor(from: number, to: number, alphabetId: number) {
+  constructor(from: string, to: string, label: string) {
       this.from = from;
       this.to = to;
-      this.alphabetId = alphabetId;
+      this.label = label;
   }
 
   getId(): string {

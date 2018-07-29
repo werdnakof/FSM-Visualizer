@@ -8,8 +8,8 @@ import { StateMachineImpl } from '../selectors/statemachines';
 
 export interface GraphProps {
   // states: VState[];
-  // transitions: Transition[];
-  sm: StateMachineImpl
+  // edges: Transition[];
+  smi: StateMachineImpl
 }
 
 export default class Graph extends React.Component<GraphProps, {}> {
@@ -21,16 +21,17 @@ export default class Graph extends React.Component<GraphProps, {}> {
   render() { return <div id="graph" />; }
 
   updateGraph() {
-    const nodes = new DataSet([...this.props.sm.states]);
+    console.log(this.props.smi);
+    const nodes = new DataSet([...this.props.smi.states]);
 
-    // create an array with transitions
-    const transitions = new DataSet([...this.props.sm.transitions]);
+    // create an array with edges
+    const edges = new DataSet([...this.props.smi.edges]);
 
     // create a network
     const container = document.getElementById('graph');
 
     // provide the data in the vis format
-    const data = { nodes, edges: transitions };
+    const data = { nodes, edges };
 
     const options = {};
 

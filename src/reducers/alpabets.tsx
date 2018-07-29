@@ -2,13 +2,13 @@ import Alphabet from '../models/Alphabet'
 import { Action as AlphabetAction, Types } from '../actions/alphabets'
 
 export interface State {
-  alphabets: { [id: number]: Alphabet }
+  alphabets: { [id: string]: Alphabet }
 }
 
 export const initialState: State = {
   alphabets: {
-    0: { id: 0, label: 'a-to-b' },
-    1: { id: 1, label: 'b-to-c' }
+    'a-to-b': { id: 0, label: 'a-to-b' },
+    'b-to-c': { id: 1, label: 'b-to-c' }
   }
 };
 
@@ -17,25 +17,17 @@ export function reducer(state: State = initialState,
 
   switch (action.type) {
     case Types.ADD_ALPHABET: {
-
       const a: Alphabet = action.payload.alphabet;
-
-      for (const id in state.alphabets) {
-        if (state.alphabets[id].label === a.label) {
-          return state;
-        }
-      }
-
       return {
         alphabets: {
           ...state.alphabets,
-          [a.id]: a
+          [a.label]: a
         }
       }
     }
 
     case Types.REMOVE_ALPHABET: {
-      const { [action.payload.id]: _, ...alphabets } = state.alphabets;
+      const { [action.payload.label]: _, ...alphabets } = state.alphabets;
       return { alphabets }
     }
 

@@ -12,9 +12,9 @@ export interface Props {
 }
 
 interface State {
-  fromStateId: number,
-  toStateId: number,
-  alphabetId: number
+  fromStateId: string,
+  toStateId: string,
+  label: string
 }
 
 export class AddTransitionForm extends React.Component<Props, State> {
@@ -23,8 +23,9 @@ export class AddTransitionForm extends React.Component<Props, State> {
     this.state = {
       fromStateId: null,
       toStateId: null,
-      alphabetId: null
+      label: null
     };
+
     this._handleSubmit = this._handleSubmit.bind(this);
     this._updateFrom = this._updateFrom.bind(this);
     this._updateTo = this._updateTo.bind(this);
@@ -37,15 +38,14 @@ export class AddTransitionForm extends React.Component<Props, State> {
     console.log(this.state);
     if (this.state.fromStateId === null
         || this.state.toStateId === null
-        || this.state.alphabetId === null) {
+        || this.state.label === null) {
       return;
     }
 
-    console.log('fullfilled');
     this.props.handleSubmit(new Transition(
       this.state.fromStateId,
       this.state.toStateId,
-      this.state.alphabetId
+      this.state.label
     ));
 
     this.setState({});
@@ -53,19 +53,19 @@ export class AddTransitionForm extends React.Component<Props, State> {
 
   _updateFrom(state: VState) {
     this.setState((prev => {
-      return { ...prev, fromStateId: state.id }
+      return { ...prev, fromStateId: state.label }
     }));
   }
 
   _updateTo(state: VState) {
     this.setState((prev => {
-      return { ...prev, toStateId: state.id }
+      return { ...prev, toStateId: state.label }
     }));
   }
 
   _updateLabel(alphabet: Alphabet) {
     this.setState((prev => {
-      return { ...prev, alphabetId: alphabet.id }
+      return { ...prev, label: alphabet.label }
     }));
   }
 

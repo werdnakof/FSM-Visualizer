@@ -1,7 +1,7 @@
 export default interface StateMachine {
   label: string,
-  startStateId: number,
-  stateIds: number[],
-  alphabetIds: number[],
+  startStateId: string,
+  stateIds: string[],
+  alphabetIds: string[],
   transitionIds: string[]
 }

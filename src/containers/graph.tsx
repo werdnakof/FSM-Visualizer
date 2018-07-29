@@ -1,14 +1,12 @@
 import { connect } from 'react-redux'
 import { State } from '../reducers'
-import { getStates } from '../selectors/vstates'
-import { getTransitions } from '../selectors/transitions'
 import Graph, { GraphProps } from '../components/Graph'
-import { getDisplayStateMachineImpl, StateMachineImpl } from '../selectors/statemachines';
+import { getDisplayStateMachineImpl } from '../selectors/statemachines';
 
 const mapStateToProps = (state: State): GraphProps => ({
   // states: getStates(state),
-  // transitions: getTransitions(state)
-  sm: getDisplayStateMachineImpl(state)
+  // edges: getTransitions(state)
+  smi: getDisplayStateMachineImpl(state)
 });
 
 export default connect<any, any, any>(

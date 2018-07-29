@@ -23,7 +23,7 @@ export const initialState: State = {
 
 export const reducer = combineReducers<State>({
   vstates: fromVstates.reducer,
+  stateMachines: fromStateMachines.reducer,
   transitions: fromTransitions.reducer,
-  alphabets: fromAlphabets.reducer,
-  stateMachines: fromStateMachines.reducer
+  alphabets: fromAlphabets.reducer
 });

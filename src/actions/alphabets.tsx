@@ -15,23 +15,24 @@ export interface AddAlphabetAction {
 
 export interface RemoveAlphabetAction {
   type: Types.REMOVE_ALPHABET,
-  payload: { id: number }
+  payload: { label: string }
 }
 
-export function addAlphabet(character: string): AddAlphabetAction {
+export function addAlphabet(label: string): AddAlphabetAction {
+
   return {
     type: Types.ADD_ALPHABET,
     payload: { alphabet: {
         id: nextAlphabetId++,
-        label: character
+        label
       }}
   }
 }
 
-export function removeAlphabet(id: number): RemoveAlphabetAction {
+export function removeAlphabet(label: string): RemoveAlphabetAction {
   return {
     type: Types.REMOVE_ALPHABET,
-    payload: { id }
+    payload: { label }
   }
 }
 
