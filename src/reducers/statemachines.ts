@@ -1,6 +1,10 @@
 import StateMachine from '../models/StateMachine';
 import { AddStateMachineAction, Types as SmActionType } from '../actions/statemachines';
 import { AddVStateAction, Types as StateActionType } from '../actions/vstates';
+import { AddAlphabetAction, Types as AlphabetActionType } from '../actions/alphabets';
+import Alphabet from '../models/Alphabet';
+import { AddTransitionAction, Types as TransitionActionType } from '../actions/transitions';
+import Transition from '../models/Transition';
 
 let stateMachineId: number = 0;
 
@@ -22,7 +26,7 @@ export const initialState: State = {
   }
 };
 
-type Action = AddStateMachineAction | AddVStateAction;
+type Action = AddStateMachineAction | AddVStateAction | AddAlphabetAction | AddTransitionAction;
 
 export function reducer(state: State = initialState,
                         action: Action): State {
@@ -43,13 +47,12 @@ export function reducer(state: State = initialState,
     case StateActionType.ADD_VSTATE: {
       // Update state machine by the current display id
       // with the newly added state's id
+
       const vstate = action.payload.vstate;
       const sm: StateMachine = state.stateMachines[state.displayId];
 
-      const stateIds: string[] = [...sm.stateIds];
-      if (!stateIds.includes(vstate.label)) {
-        stateIds.push(vstate.label);
-      }
+      const set = new Set<string>(sm.stateIds);
+      set.add(vstate.label);
 
       return {
         ...state,
@@ -57,7 +60,44 @@ export function reducer(state: State = initialState,
           ...state.stateMachines,
           [state.displayId]: {
             ...sm,
-            stateIds
+            stateIds: Array.from(set)
+          }
+        }
+      }
+    }
+
+    case AlphabetActionType.ADD_ALPHABET: {
+      const alphabet: Alphabet = action.payload.alphabet;
+      const sm: StateMachine = state.stateMachines[state.displayId];
+
+      const set = new Set<string>(sm.alphabetIds);
+      set.add(alphabet.label);
+
+      return {
+        ...state,
+        stateMachines: {
+          ...state.stateMachines,
+          [state.displayId]: {
+            ...sm,
+            alphabetIds: Array.from(set)
+          }
+        }
+      }
+    }
+
+    case TransitionActionType.ADD_Transition: {
+      const transition: Transition = action.payload.transition;
+      const sm: StateMachine = state.stateMachines[state.displayId];
+      const set = new Set(sm.transitionIds);
+      set.add(transition.getId());
+
+      return {
+        ...state,
+        stateMachines: {
+          ...state.stateMachines,
+          [state.displayId]: {
+            ...sm,
+            transitionIds: Array.from(set)
           }
         }
       }
