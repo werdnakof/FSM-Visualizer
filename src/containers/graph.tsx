@@ -4,7 +4,7 @@ import Graph, { GraphProps } from '../components/Graph'
 import { getDisplayStateMachineImpl } from '../selectors/statemachines';
 
 const mapStateToProps = (state: State): GraphProps => ({
-  // states: getStates(state),
+  // stateMachinesLabels: getStates(state),
   // edges: getTransitions(state)
   smi: getDisplayStateMachineImpl(state)
 });

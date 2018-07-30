@@ -78,7 +78,9 @@ export const getDisplayStateMachineImpl = createSelector(
   }
 );
 
-export const getDisplayStateMachine = createSelector(
+export const getLabels = createSelector(
   [(state: State) => state.stateMachines],
-  (sm) => sm.stateMachines[sm.displayId]
+  (sm) => (Object.keys(sm.stateMachines).map((key) => {
+    return sm.stateMachines[Number(key)].label
+  }))
 );

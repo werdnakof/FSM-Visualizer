@@ -1,5 +1,5 @@
 import StateMachine from '../models/StateMachine';
-import { AddStateMachineAction, Types as SmActionType } from '../actions/statemachines';
+import { AddStateMachineAction, SwitchStateMachineAction, Types as SmActionType } from '../actions/statemachines';
 import { AddVStateAction, Types as StateActionType } from '../actions/vstates';
 import { AddAlphabetAction, Types as AlphabetActionType } from '../actions/alphabets';
 import Alphabet from '../models/Alphabet';
@@ -26,7 +26,8 @@ export const initialState: State = {
   }
 };
 
-type Action = AddStateMachineAction | AddVStateAction | AddAlphabetAction | AddTransitionAction;
+type Action = AddStateMachineAction | SwitchStateMachineAction |
+  AddVStateAction | AddAlphabetAction | AddTransitionAction;
 
 export function reducer(state: State = initialState,
                         action: Action): State {
@@ -34,13 +35,20 @@ export function reducer(state: State = initialState,
   switch (action.type) {
     case SmActionType.ADD_STATE_MACHINE: {
       const stateMachine: StateMachine = action.payload.stateMachine;
-      const currentId = stateMachineId++;
+      const currentId = ++stateMachineId;
       return {
         displayId: currentId,
         stateMachines: {
           ...state.stateMachines,
           [currentId]: stateMachine
         }
+      }
+    }
+
+    case SmActionType.SWITCH_STATE_MACHINE: {
+      return {
+        ...state,
+        displayId: action.payload.id
       }
     }
 

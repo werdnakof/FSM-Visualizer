@@ -5,15 +5,15 @@ import Alphabet from '../models/Alphabet';
 type DataObject = VState | Alphabet;
 
 export interface Props {
-  states: DataObject[]
-  updateState: (state: DataObject) => void
+  objects: DataObject[]
+  update: (state: DataObject) => void
 }
 
 interface State {
   selected: DataObject;
 }
 
-export default class Dropdown extends React.Component<Props, State> {
+export default class DropdownSelector extends React.Component<Props, State> {
 
   static populateOptions(options: DataObject[]) {
     return options.map((option) => (
@@ -23,17 +23,16 @@ export default class Dropdown extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    console.log(props);
-    this._updateSelect = this._updateSelect.bind(this);
+    this._update = this._update.bind(this);
   }
 
-  _updateSelect(e: React.FormEvent<HTMLSelectElement>) {
+  _update(e: React.FormEvent<HTMLSelectElement>) {
 
     const v: number = Number(e.currentTarget.value);
 
-    for (const state of this.props.states) {
-      if (state.id === v) {
-        this.props.updateState(state);
+    for (const object of this.props.objects) {
+      if (object.id === v) {
+        this.props.update(object);
         break;
       }
     }
@@ -41,10 +40,12 @@ export default class Dropdown extends React.Component<Props, State> {
 
   render() {
     return (
-      <select onChange={this._updateSelect}>
-        <option/>
-        {Dropdown.populateOptions(this.props.states)}
-      </select>
+      <div>
+        <select onChange={this._update}>
+          <option/>
+          {DropdownSelector.populateOptions(this.props.objects)}
+        </select>
+      </div>
     )
   }
 }

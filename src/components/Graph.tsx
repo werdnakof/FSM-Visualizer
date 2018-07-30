@@ -7,7 +7,7 @@ import Alphabet from '../models/Alphabet';
 import { StateMachineImpl } from '../selectors/statemachines';
 
 export interface GraphProps {
-  // states: VState[];
+  // stateMachinesLabels: VState[];
   // edges: Transition[];
   smi: StateMachineImpl
 }

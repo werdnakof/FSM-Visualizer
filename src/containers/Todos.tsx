@@ -6,7 +6,7 @@ import TodosList from '../components/TodosList'
 
 const mapStateToProps = (state: State) => ({
   todos: getTodos(state)
-})
+});
 
 const mapDispatchToProps = {
   onTodoClicked: toggleTodo

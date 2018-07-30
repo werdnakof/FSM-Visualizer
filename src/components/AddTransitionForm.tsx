@@ -1,4 +1,4 @@
-import Dropdown  from './Dropdown'
+import DropdownSelector  from './DropdownSelector'
 import VState from '../models/VState';
 import Transition from '../models/Transition';
 import * as React from 'react';
@@ -14,7 +14,7 @@ export interface Props {
 interface State {
   fromStateId: string,
   toStateId: string,
-  label: string
+  alphabetId: string
 }
 
 export class AddTransitionForm extends React.Component<Props, State> {
@@ -23,7 +23,7 @@ export class AddTransitionForm extends React.Component<Props, State> {
     this.state = {
       fromStateId: null,
       toStateId: null,
-      label: null
+      alphabetId: null
     };
 
     this._handleSubmit = this._handleSubmit.bind(this);
@@ -38,17 +38,15 @@ export class AddTransitionForm extends React.Component<Props, State> {
     console.log(this.state);
     if (this.state.fromStateId === null
         || this.state.toStateId === null
-        || this.state.label === null) {
+        || this.state.alphabetId === null) {
       return;
     }
 
     this.props.handleSubmit(new Transition(
       this.state.fromStateId,
       this.state.toStateId,
-      this.state.label
+      this.state.alphabetId
     ));
-
-    this.setState({});
   }
 
   _updateFrom(state: VState) {
@@ -65,16 +63,16 @@ export class AddTransitionForm extends React.Component<Props, State> {
 
   _updateLabel(alphabet: Alphabet) {
     this.setState((prev => {
-      return { ...prev, label: alphabet.label }
+      return { ...prev, alphabetId: alphabet.label }
     }));
   }
 
   render() {
     return (
       <form onSubmit={this._handleSubmit}>
-        <Dropdown states={this.props.states} updateState={this._updateFrom}/>
-        <Dropdown states={this.props.states} updateState={this._updateTo}/>
-        <Dropdown states={this.props.alphabets} updateState={this._updateLabel}/>
+        <DropdownSelector objects={this.props.states} update={this._updateFrom}/>
+        <DropdownSelector objects={this.props.states} update={this._updateTo}/>
+        <DropdownSelector objects={this.props.alphabets} update={this._updateLabel}/>
         <button type="submit">Submit</button>
       </form>
     )
