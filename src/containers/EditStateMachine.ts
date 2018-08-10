@@ -1,12 +1,12 @@
 import StateMachineSelector from '../components/StateMachineSelector';
 import { connect } from 'react-redux';
 import { State } from '../reducers';
-import { getLabels } from '../selectors/statemachines';
+import { getStateMachineLabels } from '../selectors/statemachines';
 import { addStateMachine, switchStateMachine } from '../actions/statemachines';
 
 const mapStateToProps = (state: State) => ({
   displayedId: state.stateMachines.displayId,
-  stateMachinesLabels: getLabels(state)
+  stateMachinesLabels: getStateMachineLabels(state)
 });
 
 const mapDispatchToProps = {

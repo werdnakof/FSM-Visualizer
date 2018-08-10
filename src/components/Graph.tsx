@@ -21,7 +21,7 @@ export default class Graph extends React.Component<GraphProps, {}> {
   render() { return <div id="graph" />; }
 
   updateGraph() {
-    console.log(this.props.smi);
+
     const nodes = new DataSet([...this.props.smi.states]);
 
     // create an array with edges
@@ -33,7 +33,30 @@ export default class Graph extends React.Component<GraphProps, {}> {
     // provide the data in the vis format
     const data = { nodes, edges };
 
-    const options = {};
+    const options = {
+      nodes: {
+        shape: 'dot',
+        size: 16,
+        font: { size: 12 },
+        borderWidth: 1,
+        margin: {
+          top: 10,
+          bottom: 20
+        }
+      },
+      edges: {
+        width: 1,
+        font: { size: 12 }
+      },
+      interaction: {
+        dragNodes: false,
+        dragView: false,
+        zoomView: false
+      },
+      layout: {
+        randomSeed: 4,
+        hierarchical: { sortMethod: 'directed', direction: 'LR' } }
+    };
 
     // initialize your network!
     const nw = new Network(container, data, options);

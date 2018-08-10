@@ -13,8 +13,8 @@ export interface AddVStateAction {
 }
 
 export interface RemoveVStateAction {
-  type: Types.ADD_VSTATE,
-  payload: { vstate: VState}
+  type: Types.REMOVE_VSTATE,
+  payload: { label: string }
 }
 
 export function addVState(label: string): AddVStateAction {
@@ -24,5 +24,12 @@ export function addVState(label: string): AddVStateAction {
       id: nextVStateId++,
       label
     }}
+  }
+}
+
+export function removeVState(label: string): RemoveVStateAction {
+  return {
+    type: Types.REMOVE_VSTATE,
+    payload: { label }
   }
 }

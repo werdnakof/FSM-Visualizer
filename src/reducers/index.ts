@@ -1,4 +1,3 @@
-import * as fromTodos from './todos'
 import * as fromVstates from './states'
 import * as fromTransitions from './transitions'
 import * as fromAlphabets from './alpabets'
@@ -9,7 +8,6 @@ export interface State {
   vstates: fromVstates.State
   transitions: fromTransitions.State
   alphabets: fromAlphabets.State
-  todos: fromTodos.State,
   stateMachines: fromStateMachines.State
 }
 
@@ -17,7 +15,6 @@ export const initialState: State = {
   vstates: fromVstates.initialState,
   transitions: fromTransitions.initialState,
   alphabets: fromAlphabets.initialState,
-  todos: fromTodos.initialState,
   stateMachines: fromStateMachines.initialState
 };
 

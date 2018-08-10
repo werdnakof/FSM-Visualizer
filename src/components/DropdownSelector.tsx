@@ -40,12 +40,12 @@ export default class DropdownSelector extends React.Component<Props, State> {
 
   render() {
     return (
-      <div>
+      <a>
         <select onChange={this._update}>
           <option/>
           {DropdownSelector.populateOptions(this.props.objects)}
         </select>
-      </div>
+      </a>
     )
   }
 }

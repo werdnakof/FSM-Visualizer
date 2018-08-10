@@ -7,8 +7,10 @@ import Alphabet from '../models/Alphabet';
 
 export interface Props {
   states: VState[],
-  alphabets: Alphabet[]
-  handleSubmit: (edge: Transition) => void
+  alphabets: Alphabet[],
+  transitionIds: string[],
+  handleSubmit: (edge: Transition) => void,
+  handleDelete: (label: string) => void
 }
 
 interface State {
@@ -17,7 +19,7 @@ interface State {
   alphabetId: string
 }
 
-export class AddTransitionForm extends React.Component<Props, State> {
+export class TransitionForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -30,6 +32,7 @@ export class AddTransitionForm extends React.Component<Props, State> {
     this._updateFrom = this._updateFrom.bind(this);
     this._updateTo = this._updateTo.bind(this);
     this._updateLabel = this._updateLabel.bind(this);
+    this._handleDelete = this._handleDelete.bind(this);
   }
 
   _handleSubmit(e: FormEvent<any>) {
@@ -67,14 +70,39 @@ export class AddTransitionForm extends React.Component<Props, State> {
     }));
   }
 
+  _handleDelete(e: FormEvent<HTMLButtonElement>) {
+
+    e.preventDefault();
+
+    const label: string = e.currentTarget.value;
+
+    this.props.handleDelete(label);
+  }
+
+  _populateButtons() {
+    return Array.from(this.props.transitionIds).map((id) => (
+      <button
+        type="button"
+        className="btn btn-secondary"
+        key={id}
+        value={id}
+        onClick={this._handleDelete}>{id}</button>
+    ));
+  }
+
   render() {
     return (
-      <form onSubmit={this._handleSubmit}>
-        <DropdownSelector objects={this.props.states} update={this._updateFrom}/>
-        <DropdownSelector objects={this.props.states} update={this._updateTo}/>
-        <DropdownSelector objects={this.props.alphabets} update={this._updateLabel}/>
-        <button type="submit">Submit</button>
-      </form>
+      <div>
+        <form onSubmit={this._handleSubmit}>
+          <DropdownSelector objects={this.props.states} update={this._updateFrom}/>
+          <DropdownSelector objects={this.props.states} update={this._updateTo}/>
+          <DropdownSelector objects={this.props.alphabets} update={this._updateLabel}/>
+          <button type="submit">Submit</button>
+        </form>
+        <div className="btn-group" role="group">
+          {this._populateButtons()}
+        </div>
+      </div>
     )
   }
 }

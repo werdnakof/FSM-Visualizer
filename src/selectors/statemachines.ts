@@ -10,7 +10,17 @@ const getState = ((state: State) => state);
 export interface Edge {
   from: number,
   to: number,
-  label: string
+  label: string,
+  arrows: string
+}
+
+interface Color {
+  background: string,
+  border: string
+}
+
+interface StartState extends VState {
+  color: Color | string
 }
 
 export class StateMachineImpl {
@@ -22,13 +32,14 @@ export class StateMachineImpl {
   edges: Edge[] = [];
 
   constructor(state: State) {
+
     const toDisplay: number = state.stateMachines.displayId;
     const stateMachine: StateMachine = state.stateMachines.stateMachines[toDisplay];
 
     this.label = stateMachine.label;
     this.startStateId = stateMachine.startStateId;
 
-    this.populateStates(stateMachine, state.vstates.states);
+    this.populateStates(stateMachine, state.vstates.states, stateMachine.startStateId);
     this.populateAlphabets(stateMachine, state.alphabets.alphabets);
     this.populateTransitions(stateMachine,
                              state.vstates.states,
@@ -36,9 +47,23 @@ export class StateMachineImpl {
   }
 
   private populateStates(stateMachine: StateMachine,
-                         vstates: { [id: string]: VState }) {
+                         vstates: { [id: string]: VState },
+                         startId: string) {
     for (const id of stateMachine.stateIds) {
-      this.states.push(vstates[id]);
+
+      let color: string = 'white';
+      if (stateMachine.acceptedStateIds.indexOf(id) >= 0) color = 'rgb(226, 181, 179)';
+      if (id === startId) color = 'rgb(179, 226, 195)';
+
+      const startState: StartState = {
+        ...vstates[id],
+        color: {
+          border: 'black',
+          background: color,
+        }
+      };
+
+      this.states.push(startState);
     }
   }
 
@@ -52,13 +77,12 @@ export class StateMachineImpl {
       results.push(transitions[id]);
     }
 
-    console.log(results);
-
     results.map((tran) => {
       this.edges.push({
         from: vstates[tran.from].id,
         to: vstates[tran.to].id,
-        label: tran.label
+        label: tran.label,
+        arrows: 'to'
       });
     });
   }
@@ -78,9 +102,32 @@ export const getDisplayStateMachineImpl = createSelector(
   }
 );
 
-export const getLabels = createSelector(
+export const getStateMachineLabels = createSelector(
   [(state: State) => state.stateMachines],
   (sm) => (Object.keys(sm.stateMachines).map((key) => {
     return sm.stateMachines[Number(key)].label
   }))
 );
+
+export const getDisplayedSmStateLabels = createSelector(
+  [(state: State) => state.stateMachines],
+  (sms) => {
+    const displayedSm: StateMachine = sms.stateMachines[sms.displayId];
+    return Array.from(displayedSm.stateIds);
+  }
+);
+
+export const getDisplayedSmAcceptedStateLabels = createSelector(
+  [(state: State) => state.stateMachines],
+  (sms) => {
+    const displayedSm: StateMachine = sms.stateMachines[sms.displayId];
+    return Array.from(displayedSm.acceptedStateIds);
+  }
+);
+
+export const getDisplayedSmTransitionIds = createSelector(
+  [(state: State) => state.stateMachines],
+  (sms) => {
+    return Array.from(sms.stateMachines[sms.displayId].transitionIds)
+  }
+)
