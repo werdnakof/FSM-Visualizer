@@ -1,7 +1,7 @@
 import Alphabet from '../models/Alphabet'
 import VState from '../models/VState';
 
-let nextAlphabetId: number = 2;
+let nextAlphabetId: number = 4;
 
 export enum Types {
   ADD_ALPHABET = '[alphabets] ADD_ALPHABET',

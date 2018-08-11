@@ -1,8 +1,12 @@
 import * as React from 'react';
 import VState from '../models/VState';
 import Alphabet from '../models/Alphabet';
+import StateMachine from '../models/StateMachine';
 
-type DataObject = VState | Alphabet;
+export interface DataObject {
+  id: number,
+  label: string
+}
 
 export interface Props {
   objects: DataObject[]
@@ -13,9 +17,9 @@ interface State {
   selected: DataObject;
 }
 
-export default class DropdownSelector extends React.Component<Props, State> {
+export default class DropDownSelector<T extends DataObject> extends React.Component<Props, State> {
 
-  static populateOptions(options: DataObject[]) {
+  populateOptions(options: DataObject[]) {
     return options.map((option) => (
       <option key={option.id} value={option.id}>{option.label}</option>
     ));
@@ -43,7 +47,7 @@ export default class DropdownSelector extends React.Component<Props, State> {
       <a>
         <select onChange={this._update}>
           <option/>
-          {DropdownSelector.populateOptions(this.props.objects)}
+          {this.populateOptions(this.props.objects)}
         </select>
       </a>
     )

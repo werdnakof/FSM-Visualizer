@@ -12,7 +12,7 @@ import { AddVStateAction, RemoveVStateAction, Types as StateActionType } from '.
 import { AddAlphabetAction, RemoveAlphabetAction, Types as AlphabetActionType } from '../actions/alphabets';
 import { AddTransitionAction, RemoveTransitionAction, Types as TransitionActionType } from '../actions/transitions';
 
-let stateMachineId: number = 0;
+let stateMachineId: number = 2;
 
 export interface State {
   displayId: number
@@ -23,12 +23,22 @@ export const initialState: State = {
   displayId: 0,
   stateMachines: {
     0: {
-      label: 'Demo State Machine',
+      id: 0,
+      label: 'Demo 1',
       startStateId: 'a',
+      acceptedStateIds: ['b'],
+      stateIds: ['a', 'b'],
+      alphabetIds: ['0', '1'],
+      transitionIds: ['a-a 0', 'a-b 1', 'b-a 0', 'b-a 1']
+    },
+    1: {
+      id: 1,
+      label: 'Demo 2',
+      startStateId: 'c',
       acceptedStateIds: ['c'],
-      stateIds: ['a', 'b', 'c'],
-      alphabetIds: ['a-to-b', 'b-to-c'],
-      transitionIds: ['a-b', 'b-c']
+      stateIds: ['c', 'd'],
+      alphabetIds: ['0', '1'],
+      transitionIds: ['c-c 1', 'c-d 0', 'd-d 0', 'd-c 1']
     }
   }
 };
@@ -46,12 +56,15 @@ export function reducer(state: State = initialState,
   switch (action.type) {
     case SmActionType.ADD_STATE_MACHINE: {
       const stateMachine: StateMachine = action.payload.stateMachine;
-      const currentId = ++stateMachineId;
+      const currentId = stateMachineId++;
       return {
         displayId: currentId,
         stateMachines: {
           ...state.stateMachines,
-          [currentId]: stateMachine
+          [currentId]: {
+            ...stateMachine,
+            id: currentId
+          }
         }
       }
     }

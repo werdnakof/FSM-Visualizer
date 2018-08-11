@@ -11,6 +11,6 @@ export default class Transition {
   }
 
   getId(): string {
-    return `${this.from}-${this.to}`
+    return `${this.from}-${this.to} ${this.label}`
   }
 }

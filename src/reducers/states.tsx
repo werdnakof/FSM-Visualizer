@@ -7,9 +7,14 @@ export interface State {
 
 export const initialState: State = {
   states: {
-    'a': { id: 0, label: 'a'},
-    'b': { id: 1, label: 'b' },
-    'c': { id: 2, label: 'c' }
+    'ε': { id: 0, label: 'ε'},
+    'a': { id: 1, label: 'a'},
+    'b': { id: 2, label: 'b' },
+    'c': { id: 3, label: 'c' },
+    'd': { id: 4, label: 'd' },
+    // 'e': { id: 5, label: 'e' },
+    // 'f': { id: 6, label: 'f' },
+    // 'g': { id: 7, label: 'g' },
   }
 };
 

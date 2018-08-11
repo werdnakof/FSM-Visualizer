@@ -40,6 +40,7 @@ export function addStateMachine(label: string): AddStateMachineAction {
     type: Types.ADD_STATE_MACHINE,
     payload: {
       stateMachine: {
+        id: -1,
         label,
         startStateId: '',
         acceptedStateIds: [],

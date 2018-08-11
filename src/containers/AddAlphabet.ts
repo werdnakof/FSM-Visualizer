@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
 import { addAlphabet } from '../actions/alphabets'
-import AddAlphabetForm from '../components/AddAlphabetForm';
+import AlphabetForm from '../components/AlphabetForm';
 
 export default connect<any, any, any>(
   null,
   { handleSubmit: addAlphabet }
-)(AddAlphabetForm)
+)(AlphabetForm)

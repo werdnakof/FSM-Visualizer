@@ -1,7 +1,7 @@
 import { getStates } from '../selectors/vstates';
 import { connect } from 'react-redux';
 import { State } from '../reducers'
-import { TransitionForm, Props } from '../components/TransitionForm';
+import { TransitionForm, TransitionFormProps } from '../components/TransitionForm';
 import { addTransition, removeTransition } from '../actions/transitions';
 import { getAlphabets } from '../selectors/alphabets';
 import { getDisplayedSmTransitionIds } from '../selectors/statemachines';

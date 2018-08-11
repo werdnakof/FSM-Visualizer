@@ -20,7 +20,6 @@ export default class StateMachineSelector extends React.Component<Props, State> 
 
   constructor(props: Props) {
     super(props);
-    console.log(props);
 
     this.state = {
       selected: props.displayedId,

@@ -7,8 +7,14 @@ export interface State {
 
 export const initialState: State = {
   transitions: {
-    'a-b': new Transition('a', 'b', 'a-to-b'),
-    'b-c': new Transition('b', 'c', 'b-to-c')
+    'a-a 0': new Transition('a', 'a', '0'),
+    'a-b 1': new Transition('a', 'b', '1'),
+    'b-a 0': new Transition('b', 'a', '0'),
+    'b-a 1': new Transition('b', 'a', '1'),
+    'c-c 1': new Transition('c', 'c', '1'),
+    'c-d 0': new Transition('c', 'd', '0'),
+    'd-d 0': new Transition('d', 'd', '0'),
+    'd-c 1': new Transition('d', 'c', '1'),
   }
 };
 

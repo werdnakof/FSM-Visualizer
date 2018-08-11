@@ -7,8 +7,8 @@ export interface State {
 
 export const initialState: State = {
   alphabets: {
-    'a-to-b': { id: 0, label: 'a-to-b' },
-    'b-to-c': { id: 1, label: 'b-to-c' }
+    '0': { id: 0, label: '0' },
+    '1': { id: 1, label: '1' },
   }
 };
 

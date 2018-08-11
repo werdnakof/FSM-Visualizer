@@ -10,7 +10,7 @@ interface State {
   value: string
 }
 
-export default class AddAlphabetForm extends React.Component<Props, State> {
+export default class AlphabetForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = { value: '' }; // Value is empty by default

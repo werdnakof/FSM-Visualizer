@@ -1,9 +1,10 @@
-import DropdownSelector  from './DropdownSelector'
+import DropDownSelector  from './DropDownSelector'
 import VState from '../models/VState';
-import Transition from '../models/Transition';
 import * as React from 'react';
 import { FormEvent } from 'react';
-import Alphabet from '../models/Alphabet';
+
+type StateDropdown = new () => DropDownSelector<VState>;
+const StateDropdownSelector = DropDownSelector as StateDropdown;
 
 export interface Props {
   labels: string[],
@@ -29,7 +30,6 @@ export class AcceptedStateForm extends React.Component<Props, State> {
   _handleSubmit(e: FormEvent<any>) {
 
     e.preventDefault();
-    console.log(this.state);
     if (this.state.selectedState === null) return;
 
     this.props.handleSubmit(this.state.selectedState);
@@ -65,7 +65,7 @@ export class AcceptedStateForm extends React.Component<Props, State> {
     return (
       <div>
         <form onSubmit={this._handleSubmit}>
-          <DropdownSelector objects={this.props.states} update={this._updateSelectedState}/>
+          <StateDropdownSelector objects={this.props.states} update={this._updateSelectedState} />
           <button type="submit">Submit</button>
         </form>
 

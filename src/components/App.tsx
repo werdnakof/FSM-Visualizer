@@ -5,6 +5,8 @@ import AddTransitionContainer from '../containers/AddTransition'
 import AddAlphabetContainer from '../containers/AddAlphabet'
 import EditStateMachineContainer from '../containers/EditStateMachine'
 import AddAcceptedStateContainer from '../containers/AcceptedState'
+import OperatedGraphContainer from '../containers/OperatedGraph'
+import OperationSubmitContainer from '../containers/OperationSubmit'
 
 class App extends React.Component {
   render() {
@@ -16,6 +18,8 @@ class App extends React.Component {
         <AddAlphabetContainer />
         <AddTransitionContainer />
         <GraphContainer/>
+        <OperationSubmitContainer />
+        <OperatedGraphContainer />
       </div>
     );
   }
