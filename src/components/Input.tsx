@@ -13,7 +13,8 @@ export default class Input extends React.Component<Props, null> {
 
   render() {
     return (
-      <input type="text"
+      <input className="form-control"
+             type="text"
              placeholder={this.props.placeholder}
              value={this.props.text}
              onChange={e => this.props.getText(e.target.value)}/>

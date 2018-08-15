@@ -4,8 +4,6 @@ import './css/graph.css';
 import { StateMachineImpl } from '../models/StateMachineImpl';
 
 export interface GraphProps {
-  // stateMachinesLabels: VState[];
-  // edges: Transition[];
   smi: StateMachineImpl
 }
 
@@ -21,23 +19,26 @@ export default class Graph extends React.Component<GraphProps, {}> {
 
     const nodes = new DataSet([...this.props.smi.states]);
 
-    // create an array with edges
     const edges = new DataSet([...this.props.smi.edges]);
 
-    // create a network
     const container = document.getElementById('graph');
 
     const data = { nodes, edges };
 
     const options = {
-      // height: '500px',
-      // width: '50%',
-      // nodes: {
-      //   shape: 'dot'
-      // }
+      height: '100%',
+      width: '100%',
+      edges: {
+        length: 600,
+        font: { size: 24 }
+      },
+      nodes: { font: { size: 38 } },
+      layout: { randomSeed: 3 }
     };
 
     const nw = new Network(container, data, options);
+
+    nw.fit();
   }
 
   componentDidUpdate() {

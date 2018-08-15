@@ -48,7 +48,8 @@ export default class StateMachineSelector extends React.Component<Props, State> 
     this.props.switchStateMachine(Number(e.currentTarget.value));
   }
 
-  _addStateMachine(e: React.FormEvent<HTMLButtonElement>) {
+  _addStateMachine(e: React.FormEvent<any>) {
+
     e.preventDefault();
 
     if (this.state.newStateMachineLabel.length === 0) return;
@@ -70,17 +71,36 @@ export default class StateMachineSelector extends React.Component<Props, State> 
 
   render() {
     return (
-      <div>
-        <input type="text"
-               placeholder={'Enter State Machine Label'}
-               value={this.state.newStateMachineLabel}
-               onChange={e => this._getNewMachineLabelText(e.target.value)}/>
-        <button onClick={this._addStateMachine}>Add State Machine</button>
-        <br/>
-        <select onChange={this._updateDisplayed}>
-          {this.populateDropdown()}
-        </select>
-      </div>
+      <form onSubmit={this._addStateMachine}>
+        <div className="row m-1">
+          <div className="col-md-12">
+            <label className="control-label">Create a New State Machine: </label>
+          </div>
+        </div>
+        <div className="row m-1">
+          <div className="col-md-8">
+            <input className="form-control"
+                     type="text"
+                     placeholder={'Enter State Machine Name'}
+                     value={this.state.newStateMachineLabel}
+                     onChange={e => this._getNewMachineLabelText(e.target.value)}/>
+          </div>
+          <div className="col-md-4">
+            <button type="submit"
+                    className="btn btn-outline-secondary btn-block"
+                    onClick={this._addStateMachine}>{'Submit'}</button>
+          </div>
+        </div>
+        <div className="row m-1 mt-4">
+          <div className="col-md-12">
+            <label className="control-label">Displayed State Machine: </label>
+            <select className="custom-select"
+                    onChange={this._updateDisplayed}>
+              {this.populateDropdown()}
+            </select>
+          </div>
+        </div>
+      </form>
     )
   }
 }

@@ -2,16 +2,20 @@ import * as React from 'react'
 import { FormEvent } from 'react';
 import Input from './Input';
 import VState from '../models/VState';
+import DropDownSelector from './DropDownSelector';
+
+type StateDropdown = new () => DropDownSelector<VState>;
+const StateDropdownSelector = DropDownSelector as StateDropdown;
 
 interface Props {
-  labels: string[],
+  states: VState[],
   handleSubmit: (value: string) => void,
-  handleStateDelete: (label: string) => void
+  handleStateDelete: (state: VState) => void
 }
 
 interface State {
-  labels: Set<string>,
   value: string
+  selectedRemoveState: VState
 }
 
 export default class StateForm extends React.Component<Props, State> {
@@ -19,12 +23,19 @@ export default class StateForm extends React.Component<Props, State> {
     super(props);
     this.state = {
       value: '',
-      labels: new Set(props.labels)
+      selectedRemoveState: null
     };
+
     this._updateValue = this._updateValue.bind(this);
     this._handleSubmit = this._handleSubmit.bind(this);
     this._handleStateDelete = this._handleStateDelete.bind(this);
-    this._populateStateButtons = this._populateStateButtons.bind(this);
+    this._updateSelectedRemoveState = this._updateSelectedRemoveState.bind(this);
+  }
+
+  _updateSelectedRemoveState(state: VState) {
+    this.setState((prev => {
+      return { ...prev, selectedRemoveState: state }
+    }));
   }
 
   _updateValue(value: string) {
@@ -42,39 +53,45 @@ export default class StateForm extends React.Component<Props, State> {
     this.setState({ value: '' })
   }
 
-  _handleStateDelete(e: FormEvent<HTMLButtonElement>) {
+  _handleStateDelete(e: FormEvent<any>) {
 
     e.preventDefault();
 
-    const label: string = e.currentTarget.value;
+    if (this.state.selectedRemoveState === null) return;
 
-    this.props.handleStateDelete(label);
-  }
-
-  _populateStateButtons() {
-    return Array.from(this.props.labels).map((label) => (
-      <button
-        type="button"
-        className="btn btn-secondary"
-        key={label}
-        value={label}
-        onClick={this._handleStateDelete}>{label}</button>
-    ));
+    this.props.handleStateDelete(this.state.selectedRemoveState);
   }
 
   render() {
     return (
-      <div>
-        <form onSubmit={this._handleSubmit}>
-          <Input placeholder={'Enter State Label'}
-                 getText={this._updateValue}
-                  text={this.state.value}/>
-          <button type="submit">Submit</button>
-        </form>
-        <div className="btn-group" role="group">
-          {this._populateStateButtons()}
+      <form onSubmit={this._handleSubmit}>
+        <div className="row m-1 mt-4">
+          <label className={'control-label col-md-12'}>States: </label>
         </div>
-      </div>
+        <div className="row m-1">
+          <div className="col-md-8">
+            <Input placeholder={'Enter Here'}
+                   getText={this._updateValue}
+                   text={this.state.value}/>
+          </div>
+          <div className="col-md-4">
+            <button
+              className="btn btn-outline-secondary btn-block"
+              onClick={this._handleSubmit} type="submit">Submit</button>
+          </div>
+        </div>
+
+        <div className="row m-1">
+          <div className="col-md-8">
+            <StateDropdownSelector objects={this.props.states} update={this._updateSelectedRemoveState} />
+          </div>
+          <div className="col-md-4">
+            <button className="btn btn-outline-secondary btn-block"
+                    onClick={this._handleStateDelete}
+                    type="submit">Remove</button>
+          </div>
+        </div>
+      </form>
     )
   }
 }

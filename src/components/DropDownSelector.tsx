@@ -45,8 +45,9 @@ export default class DropDownSelector<T extends DataObject> extends React.Compon
   render() {
     return (
       <a>
-        <select onChange={this._update}>
-          <option/>
+        <select className="custom-select"
+                onChange={this._update}>
+          <option />
           {this.populateOptions(this.props.objects)}
         </select>
       </a>

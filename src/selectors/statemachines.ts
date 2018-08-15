@@ -2,6 +2,7 @@ import { State } from '../reducers';
 import { createSelector } from 'reselect';
 import StateMachine from '../models/StateMachine';
 import { StateMachineImpl } from '../models/StateMachineImpl';
+import VState from '../models/VState';
 
 const getState = ((state: State) => state);
 
@@ -34,19 +35,19 @@ export const getStateMachineLabels = createSelector(
   }))
 );
 
-export const getDisplayedSmStateLabels = createSelector(
-  [(state: State) => state.stateMachines],
-  (sms) => {
-    const displayedSm: StateMachine = sms.stateMachines[sms.displayId];
-    return Array.from(displayedSm.stateIds);
+export const getDisplayedSmStates = createSelector(
+  [(state: State) => state],
+  (sms): VState[] => {
+    const displayedSm: StateMachine = sms.stateMachines.stateMachines[sms.stateMachines.displayId];
+    return displayedSm.stateIds.map((id) => sms.vstates.states[id]);
   }
 );
 
-export const getDisplayedSmAcceptedStateLabels = createSelector(
-  [(state: State) => state.stateMachines],
-  (sms) => {
-    const displayedSm: StateMachine = sms.stateMachines[sms.displayId];
-    return Array.from(displayedSm.acceptedStateIds);
+export const getDisplayedSmAcceptedStates = createSelector(
+  [(state: State) => state],
+  (sms): VState[] => {
+    const displayedSm: StateMachine = sms.stateMachines.stateMachines[sms.stateMachines.displayId];
+    return displayedSm.acceptedStateIds.map((id) => sms.vstates.states[id]);
   }
 );
 

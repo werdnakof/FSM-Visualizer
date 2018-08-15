@@ -5,10 +5,10 @@ import { State } from '../reducers';
 import { getStates } from '../selectors/vstates';
 import { getAlphabets } from '../selectors/alphabets';
 import { addTransition } from '../actions/transitions';
-import { getDisplayedSmStateLabels } from '../selectors/statemachines';
+import { getDisplayedSmStates } from '../selectors/statemachines';
 
 const mapStateToProps = (state: State) => ({
-  labels: getDisplayedSmStateLabels(state)
+  states: getDisplayedSmStates(state)
 });
 
 const mapDispatchToProps = {

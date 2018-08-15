@@ -81,11 +81,29 @@ export class OperationForm extends React.Component<OperationFormProps, Operation
 
   render() {
     return (
-      <form onSubmit={this._handleSubmit}>
-        <StateMachineDropDownSelector objects={this.props.stateMachines} update={this._updateSm1}/>
-        <StateMachineDropDownSelector objects={this.props.stateMachines} update={this._updateSm2}/>
-        <StateMachineDropDownSelector objects={this.populateTypes()} update={this._updateType}/>
-        <button type="submit">Submit</button>
+      <form>
+        <div className="row m-1">
+          <label className="control-label col-md-12">Operations: </label>
+        </div>
+        <div className="row m-1">
+          <div className="col-md-12">
+            <StateMachineDropDownSelector objects={this.props.stateMachines} update={this._updateSm1}/>
+          </div>
+        </div>
+        <div className="row m-1">
+          <div className="col-md-12">
+            <StateMachineDropDownSelector objects={this.props.stateMachines} update={this._updateSm2}/>
+          </div>
+        </div>
+        <div className="row m-1">
+          <div className="col-md-12">
+            <StateMachineDropDownSelector objects={this.populateTypes()} update={this._updateType}/>
+          </div>
+        </div>
+        <div className="row m-1">
+          <button className={'btn btn-outline-secondary btn-block'}
+                  onClick={this._handleSubmit} type="submit">Submit</button>
+        </div>
       </form>
     )
   }

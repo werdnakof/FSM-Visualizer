@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { State } from '../reducers'
 import { AcceptedStateForm } from '../components/AcceptedStateForm';
 import { AddSmAcceptedState, RemoveSmAcceptedState } from '../actions/statemachines';
-import { getDisplayedSmAcceptedStateLabels, getDisplayedSmStateLabels } from '../selectors/statemachines';
+import { getDisplayedSmAcceptedStates, getDisplayedSmStates } from '../selectors/statemachines';
 
 const mapStateToProps = (state: State) => ({
-  labels: getDisplayedSmAcceptedStateLabels(state),
+  acceptedStates: getDisplayedSmAcceptedStates(state),
   states: getStates(state)
 });
 

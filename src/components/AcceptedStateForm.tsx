@@ -7,70 +7,86 @@ type StateDropdown = new () => DropDownSelector<VState>;
 const StateDropdownSelector = DropDownSelector as StateDropdown;
 
 export interface Props {
-  labels: string[],
+  acceptedStates: VState[],
   states: VState[],
   handleSubmit: (selectedState: VState) => void,
-  handleStateDelete: (label: string) => void
+  handleStateDelete: (selectedState: VState) => void
 }
 
 interface State {
-  selectedState: VState
+  selectedAddState: VState
+  selectedRemoveState: VState
 }
 
 export class AcceptedStateForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = { selectedState: null };
-    this._handleSubmit = this._handleSubmit.bind(this);
-    this._updateSelectedState = this._updateSelectedState.bind(this);
+    this.state = { selectedAddState: null, selectedRemoveState: null };
+    this._handleStateAdd = this._handleStateAdd.bind(this);
     this._handleStateDelete = this._handleStateDelete.bind(this);
-    this._populateButtons = this._populateButtons.bind(this);
+
+    this._updateSelectedAddState = this._updateSelectedAddState.bind(this);
+    this._updateSelectedRemoveState = this._updateSelectedRemoveState.bind(this);
   }
 
-  _handleSubmit(e: FormEvent<any>) {
+  _handleStateAdd(e: FormEvent<any>) {
 
     e.preventDefault();
-    if (this.state.selectedState === null) return;
 
-    this.props.handleSubmit(this.state.selectedState);
+    if (this.state.selectedAddState === null) return;
+
+    this.props.handleSubmit(this.state.selectedAddState);
   }
 
-  _updateSelectedState(state: VState) {
+  _handleStateDelete(e: FormEvent<any>) {
+
+    e.preventDefault();
+
+    if (this.state.selectedRemoveState === null) return;
+
+    console.log(this.state.selectedRemoveState);
+
+    this.props.handleStateDelete(this.state.selectedRemoveState);
+  }
+
+  _updateSelectedAddState(state: VState) {
     this.setState((prev => {
-      return { ...prev, selectedState: state }
+      return { ...prev, selectedAddState: state }
     }));
   }
 
-  _handleStateDelete(e: FormEvent<HTMLButtonElement>) {
-
-    e.preventDefault();
-
-    const label: string = e.currentTarget.value;
-
-    this.props.handleStateDelete(label);
-  }
-
-  _populateButtons() {
-    return Array.from(this.props.labels).map((label) => (
-      <button
-        type="button"
-        className="btn btn-secondary"
-        key={label}
-        value={label}
-        onClick={this._handleStateDelete}>{label}</button>
-    ));
+  _updateSelectedRemoveState(state: VState) {
+    this.setState((prev => {
+      return { ...prev, selectedRemoveState: state }
+    }));
   }
 
   render() {
     return (
       <div>
-        <form onSubmit={this._handleSubmit}>
-          <StateDropdownSelector objects={this.props.states} update={this._updateSelectedState} />
-          <button type="submit">Submit</button>
-        </form>
+        <div className="row m-1 mt-4">
+          <label className="control-label col-md-12">Accepted State: </label>
+        </div>
+        <div className="row m-1">
+          <div className="col-md-8">
+            <StateDropdownSelector objects={this.props.states} update={this._updateSelectedAddState} />
+          </div>
+          <div className="col-md-4">
+            <button className="btn btn-outline-secondary btn-block"
+                    onClick={this._handleStateAdd}
+                    type="submit">Add</button>
+          </div>
+        </div>
 
-        <div className="btn-group" role="group">
-          {this._populateButtons()}
+        <div className="row m-1">
+          <div className="col-md-8">
+            <StateDropdownSelector objects={this.props.acceptedStates} update={this._updateSelectedRemoveState} />
+          </div>
+          <div className="col-md-4">
+            <button className="btn btn-outline-secondary btn-block"
+                    onClick={this._handleStateDelete}
+                    type="submit">Remove</button>
+          </div>
         </div>
       </div>
     )

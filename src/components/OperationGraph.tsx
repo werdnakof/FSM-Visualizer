@@ -20,7 +20,6 @@ export default class OperationGraph extends React.Component<OperationGraphProps,
   render() { return <div id="op_graph" />; }
 
   updateGraph() {
-
     const nodes = new DataSet(Array.from(this.props.type.states));
 
     // create an array with edges
@@ -33,11 +32,14 @@ export default class OperationGraph extends React.Component<OperationGraphProps,
     const data = { nodes, edges };
 
     const options = {
-      // height: '500px',
-      // width: '50%',
-      // nodes: {
-      //   shape: 'dot'
-      // }
+      height: '100%',
+      width: '100%',
+      edges: {
+        length: 700,
+        font: { size: 24 }
+      },
+      nodes: { font: { size: 38 } },
+      layout: { randomSeed: 3 }
     };
 
     const nw = new Network(container, data, options);

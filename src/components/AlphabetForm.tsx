@@ -36,10 +36,22 @@ export default class AlphabetForm extends React.Component<Props, State> {
   render() {
     return (
       <form onSubmit={this._handleSubmit}>
-        <Input placeholder={'Enter Alphabet Label'}
-               getText={this._updateValue}
-               text={this.state.value}/>
-        <button type="submit">Submit</button>
+
+        <div className="row m-1 mt-4">
+          <label className="control-label col-md-12">Alphabet: </label>
+        </div>
+
+        <div className="row m-1">
+          <div className="col-md-8">
+            <Input placeholder={'Enter Here'}
+                   getText={this._updateValue}
+                   text={this.state.value}/>
+          </div>
+          <div className="col-md-4">
+            <button className="btn btn-outline-secondary btn-block"
+                    type="submit">Submit</button>
+          </div>
+        </div>
       </form>
     )
   }

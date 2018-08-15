@@ -73,9 +73,9 @@ export function AddSmAcceptedState(state: VState): AddSmAcceptedStateAction {
   }
 }
 
-export function RemoveSmAcceptedState(label: string): RemoveSmAcceptedStateAction {
+export function RemoveSmAcceptedState(state: VState): RemoveSmAcceptedStateAction {
   return {
     type: Types.REMOVE_SM_ACCEPTED_STATE,
-    payload: { label }
+    payload: { label: state.label }
   }
 }

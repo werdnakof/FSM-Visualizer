@@ -27,9 +27,9 @@ export function addVState(label: string): AddVStateAction {
   }
 }
 
-export function removeVState(label: string): RemoveVStateAction {
+export function removeVState(state: VState): RemoveVStateAction {
   return {
     type: Types.REMOVE_VSTATE,
-    payload: { label }
+    payload: { label: state.label }
   }
 }

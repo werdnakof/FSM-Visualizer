@@ -24,6 +24,10 @@ export function reducer(state: State = initialState,
   switch (action.type) {
     case Types.ADD_VSTATE: {
       const payloadState: VState = action.payload.vstate;
+      if (state.states.hasOwnProperty(payloadState.label)) {
+        return state
+      }
+
       return {
         states: {
           ...state.states,
