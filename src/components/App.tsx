@@ -8,6 +8,7 @@ import AddAcceptedStateContainer from '../containers/AcceptedState'
 import OperatedGraphContainer from '../containers/OperatedGraph'
 import OperationSubmitContainer from '../containers/OperationSubmit'
 import StartStateContainer from '../containers/StartState'
+import Description from './Description';
 
 import './css/app.css';
 
@@ -24,16 +25,17 @@ class App extends React.Component {
             <AddAlphabetContainer />
             <AddTransitionContainer />
           </div>
-          <div className="col-md-8 mt-4">
+          <div className="col-md-8 mt-2 right-side">
+            <Description />
             <GraphContainer/>
           </div>
         </div>
         <hr />
-        <div className="row first-row">
+        <div className="row first-row mb-2">
           <div className="col-md-4">
             <OperationSubmitContainer />
           </div>
-          <div className="col-md-8">
+          <div className="col-md-8 right-side">
             <OperatedGraphContainer />
           </div>
         </div>

@@ -13,3 +13,12 @@
     margin-left:0;
     width: 100%;
 }
+
+.right-side {
+    border-left: 1px solid rgba(0,0,0,.1);
+}
+
+.code-text {
+    color: #9e9e9e;
+    font-size: 14px;
+}
