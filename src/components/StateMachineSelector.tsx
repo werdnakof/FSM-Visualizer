@@ -74,7 +74,7 @@ export default class StateMachineSelector extends React.Component<Props, State> 
       <form onSubmit={this._addStateMachine}>
         <div className="row m-1">
           <div className="col-md-12">
-            <label className="control-label">Create a New State Machine: </label>
+            <label className="control-label">State Machine Name: </label>
           </div>
         </div>
         <div className="row m-1">

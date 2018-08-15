@@ -7,6 +7,7 @@ import EditStateMachineContainer from '../containers/EditStateMachine'
 import AddAcceptedStateContainer from '../containers/AcceptedState'
 import OperatedGraphContainer from '../containers/OperatedGraph'
 import OperationSubmitContainer from '../containers/OperationSubmit'
+import StartStateContainer from '../containers/StartState'
 
 import './css/app.css';
 
@@ -15,9 +16,10 @@ class App extends React.Component {
     return (
       <div className="my-fluid-container">
         <div className="row first-row">
-          <div className="col-md-4">
+          <div className="col-md-4 mt-3">
             <EditStateMachineContainer />
             <AddStateContainer />
+            <StartStateContainer />
             <AddAcceptedStateContainer />
             <AddAlphabetContainer />
             <AddTransitionContainer />

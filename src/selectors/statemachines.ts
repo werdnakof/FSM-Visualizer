@@ -43,6 +43,14 @@ export const getDisplayedSmStates = createSelector(
   }
 );
 
+export const getDisplayedSmStartState = createSelector(
+  [(state: State) => state],
+  (sms): VState => {
+    const displayedSm: StateMachine = sms.stateMachines.stateMachines[sms.stateMachines.displayId];
+    return sms.vstates.states[displayedSm.startStateId]
+  }
+);
+
 export const getDisplayedSmAcceptedStates = createSelector(
   [(state: State) => state],
   (sms): VState[] => {
