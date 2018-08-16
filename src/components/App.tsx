@@ -17,7 +17,11 @@ class App extends React.Component {
     return (
       <div className="my-fluid-container">
         <div className="row first-row">
-          <div className="col-md-4 mt-3">
+          <div className="col-md-8 mt-2">
+            <Description />
+            <GraphContainer/>
+          </div>
+          <div className="col-md-4 mt-3 right-side">
             <EditStateMachineContainer />
             <AddStateContainer />
             <StartStateContainer />
@@ -25,18 +29,14 @@ class App extends React.Component {
             <AddAlphabetContainer />
             <AddTransitionContainer />
           </div>
-          <div className="col-md-8 mt-2 right-side">
-            <Description />
-            <GraphContainer/>
-          </div>
         </div>
         <hr />
         <div className="row first-row mb-2">
-          <div className="col-md-4">
-            <OperationSubmitContainer />
-          </div>
-          <div className="col-md-8 right-side">
+          <div className="col-md-8">
             <OperatedGraphContainer />
+          </div>
+          <div className="col-md-4 right-side">
+            <OperationSubmitContainer />
           </div>
         </div>
       </div>
